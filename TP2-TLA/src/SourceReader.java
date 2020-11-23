@@ -1,22 +1,33 @@
-
+ /*
+ * SourceReader gère la lecture d'une chaine de caractère,
+ * caractère par caractère, avec méthode "goBack",
+ * pour l'analyse lexicale
+ */
 public class SourceReader {
-	
-	
-	private String entree;
-	private int pos = 0;
-	
-	public SourceReader(String entree) {
-		this.entree = entree;
+
+	private String contenu;
+	private int index=0;
+
+	public SourceReader(String contenu) {
+		this.contenu = contenu;
 	}
-	
+
+	/*
+	 * Renvoie un caractère ou null si fin de fichier
+	 */
 	public Character lectureSymbole() {
-		//Si on dépasse le nombre de caractère de l'entree on renvoie null
-		if (pos >= this.entree.length())
-			return null;
-		Character c = this.entree.charAt(pos);
-		pos++;
+		if (index >= contenu.length()) return null;
+		char c = contenu.charAt(index);
+		index++;
 		return c;
 	}
-	
-	
+
+	public void goBack() {
+		if (index == 0) {
+			System.out.println("Appel de goBack interdit");
+		} else {
+			index--;
+		}
+	}
+
 }
