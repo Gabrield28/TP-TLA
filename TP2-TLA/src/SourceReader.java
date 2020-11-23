@@ -1,4 +1,4 @@
- /*
+/*
  * SourceReader gère la lecture d'une chaine de caractère,
  * caractère par caractère, avec méthode "goBack",
  * pour l'analyse lexicale

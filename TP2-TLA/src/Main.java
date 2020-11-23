@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -24,9 +25,12 @@ public class Main {
 	}
 
 	private static void test(String entree) {
+		System.out.println();
 		SourceReader sr = new SourceReader(entree);
 		Lexer a = new Lexer();
-		System.out.println();
-		a.lexer(sr);
+		ArrayList<Token> tokens = a.lexer(sr);
+		for(Token t: tokens) {
+			System.out.println(t);
+		}
 	}
 }

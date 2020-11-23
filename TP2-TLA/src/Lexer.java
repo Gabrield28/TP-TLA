@@ -1,4 +1,6 @@
 
+import java.util.ArrayList;
+
 public class Lexer {
 
 	static Integer transitions[][] = {
@@ -57,7 +59,8 @@ public class Lexer {
 		return 16;
 	}
 
-	public void lexer(SourceReader sr) {
+	public ArrayList<Token> lexer(SourceReader sr) {
+		ArrayList<Token> tokens = new ArrayList<Token>();
 		String buf="";
 		int etat = ETAT_INITIAL;
 		while (true) {
@@ -65,72 +68,72 @@ public class Lexer {
 			Integer e = transitions[etat][indiceSymbole(c)];
 			if (e == null) {
 				System.out.println(" pas de transition depuis état " + etat + " avec symbole " + c);
-				return;
+				return new ArrayList<Token>(); // renvoie une liste vide
 			}
 			if (e >= 100) {
 				if (e == 101) {
-					System.out.println("Accepte ;");
-					// tokens.add(new Token(TokenClass.semicolon));
+					// System.out.println("Accepte ;");
+					tokens.add(new Token(TokenClass.semicolon));
 				} else if (e == 102) {
-					System.out.println("Accepte +");
-					// tokens.add(new Token(TokenClass.add));
+					// System.out.println("Accepte +");
+					tokens.add(new Token(TokenClass.add));
 				} else if (e == 103) {
-					System.out.println("Accepte -");
-					// tokens.add(new Token(TokenClass.subtract));
+					// System.out.println("Accepte -");
+					tokens.add(new Token(TokenClass.subtract));
 				} else if (e == 104) {
-					System.out.println("Accepte *");
-					// tokens.add(new Token(TokenClass.multiply));
+					// System.out.println("Accepte *");
+					tokens.add(new Token(TokenClass.multiply));
 				} else if (e == 105) {
-					System.out.println("Accepte /");
-					// tokens.add(new Token(TokenClass.divide));
+					// System.out.println("Accepte /");
+					tokens.add(new Token(TokenClass.divide));
 				} else if (e == 106) {
-					System.out.println("Accepte (");
-					// tokens.add(new Token(TokenClass.leftPar));
+					// System.out.println("Accepte (");
+					tokens.add(new Token(TokenClass.leftPar));
 				} else if (e == 107) {
-					System.out.println("Accepte )");
-					// tokens.add(new Token(TokenClass.rightPar));
+					// System.out.println("Accepte )");
+					tokens.add(new Token(TokenClass.rightPar));
 				} else if (e == 108) {
-					System.out.println("Accepte {");
-					// tokens.add(new Token(TokenClass.leftBrace));
+					// System.out.println("Accepte {");
+					tokens.add(new Token(TokenClass.leftBrace));
 				} else if (e == 109) {
-					System.out.println("Accepte }");
-					// tokens.add(new Token(TokenClass.rightBrace));
+					// System.out.println("Accepte }");
+					tokens.add(new Token(TokenClass.rightBrace));
 				} else if (e == 201) {
-					System.out.println("Accepte identifiant " + buf);
-					// tokens.add(new Token(TokenClass.ident, buf));
+					// System.out.println("Accepte identifiant " + buf);
+					tokens.add(new Token(TokenClass.ident, buf));
 					sr.goBack();
 				} else if (e == 202) {
-					System.out.println("Accepte intVal " + buf);
-					// tokens.add(new Token(TokenClass.intVal, buf));
+					// System.out.println("Accepte intVal " + buf);
+					tokens.add(new Token(TokenClass.intVal, buf));
 					sr.goBack();
 				} else if (e == 203) {
-					System.out.println("Accepte =");
-					// tokens.add(new Token(TokenClass.assign));
+					// System.out.println("Accepte =");
+					tokens.add(new Token(TokenClass.assign));
 					sr.goBack();
 				} else if (e == 204) {
-					System.out.println("Accepte ==");
-					// tokens.add(new Token(TokenClass.equal));
+					// System.out.println("Accepte ==");
+					tokens.add(new Token(TokenClass.equal));
 				} else if (e == 205) {
-					System.out.println("Accepte <");
-					// tokens.add(new Token(TokenClass.lessThan));
+					// System.out.println("Accepte <");
+					tokens.add(new Token(TokenClass.lessThan));
 					sr.goBack();
 				} else if (e == 206) {
-					System.out.println("Accepte <=");
-					// tokens.add(new Token(TokenClass.lessOrEqual));
+					// System.out.println("Accepte <=");
+					tokens.add(new Token(TokenClass.lessOrEqual));
 				} else if (e == 207) {
-					System.out.println("Accepte >");
-					// tokens.add(new Token(TokenClass.greaterThan));
+					// System.out.println("Accepte >");
+					tokens.add(new Token(TokenClass.greaterThan));
 					sr.goBack();
 				} else if (e == 208) {
-					System.out.println("Accepte >=");
-					// tokens.add(new Token(TokenClass.greaterOrEqual));
+					// System.out.println("Accepte >=");
+					tokens.add(new Token(TokenClass.greaterOrEqual));
 				} else if (e == 209) {
-					System.out.println("Accepte !");
-					// tokens.add(new Token(TokenClass.logicalNeg));
+					// System.out.println("Accepte !");
+					tokens.add(new Token(TokenClass.logicalNeg));
 					sr.goBack();
 				} else if (e == 210) {
-					System.out.println("Accepte !=");
-					// tokens.add(new Token(TokenClass.notEqual));
+					// System.out.println("Accepte !=");
+					tokens.add(new Token(TokenClass.notEqual));
 				}
 				etat = 0;
 				buf = "";
@@ -140,6 +143,7 @@ public class Lexer {
 			}
 			if (c==null) break;
 		}
+		return tokens;
 	}
 
 }
